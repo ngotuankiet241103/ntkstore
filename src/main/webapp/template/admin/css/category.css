@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+.category-container {
+	width: 1000px;
+	margin: 0 auto;
+	padding: 20px 20px;
+}
+
+.category-header {
+	display: flex;
+	margin-bottom: 20px;
+	align-items: center;
+	margin-left: -8px;
+	margin-right: -8px;
+	justify-content: flex-end;
+}
+
+.category-header button {
+	padding: 12px 18px;
+	margin-left: 20px;
+}
+
+.details-category {
+	margin-left: -8px;
+	margin-right: -8px;
+}
+
+li {
+	list-style: none;
+}
+
+.details-category .title-common-category {
+	display: flex;
+}
+
+.details-category .title-common-category {
+	padding-bottom: 14px;
+	border-bottom: 2px solid #ccc;
+}
+
+.item-title-category {
+	width: 16.67%;
+}
+
+.category-item {
+	display: flex;
+	padding: 14px 0px;
+	border-bottom: 1px solid #ccc;
+}
+
+.category-item>span {
+	width: 16.67%;
+}
+
+.category-item:last-child {
+	border: none;
+}
+
+.box {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #0000003c;
+	display: none;
+}
+
+.box-category, .box-category-details {
+	margin: auto;
+	background-color: #fff;
+	padding: 20px;
+	display: none;
+}
+
+.box.category-visible {
+	display: flex;
+}
+
+.box.category-detals-visible {
+	display: flex;
+}
+
+.box.category-visible .box-category {
+	display: block;
+}
+
+.box.category-detals-visible .box-category-details {
+	display: block;
+}
+
+.box h4 {
+	font-size: 20px;
+	padding: 10px 0px;
+}
+
+.group {
+	padding: 10px 0px;
+}
+
+.group>label {
+	display: block;
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+.group>input {
+	padding: 10px 0px;
+}
+
+.btn-addCategory {
+	float: right;
+	padding: 12px 20px;
+	cursor: pointer;
+}

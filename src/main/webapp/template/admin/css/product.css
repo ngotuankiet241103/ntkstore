@@ -1,0 +1,184 @@
+@charset "UTF-8";
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.nav{
+	width: 85%;
+	display: flex;
+	flex-direction: column;
+}
+
+.d-none {
+	display: none;
+}
+
+.w-33 {
+	width: 50%;
+}
+
+.operation {
+	display: flex;
+	justify-content: space-between;
+	padding:0px 40px;
+	height: 40px;
+	margin: 10px 0px;
+}
+
+.operation input {
+	width: 40%;
+	height: 100%;
+	position: relative;
+}
+
+.operation input::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: -20px;
+	bottom: 0;
+	height: 30px;
+	width: 20px;
+	color: beige;
+}
+
+.findByCategory {
+	display: flex;
+	justify-content: space-between;
+	height: 30px;
+}
+.findByCategory form{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 0px 20px;
+	height: 100%;
+}
+.findByCategory form select{
+	width: 220px;
+	height: 100%
+}
+.filter {
+	width: 12%;
+}
+
+.btnAddProduct {
+	width: 12%;
+	height: 100%;
+}
+
+.detail-product {
+	display: flex;
+	list-style: none;
+	margin: 10 auto;
+}
+
+.detail-product li {
+	text-align: center;
+	width: 20%;
+}
+
+.w-2 {
+	width: 20%;
+	text-align: center;
+}
+
+.list-product li {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+.list-product li img {
+	width: 80px;
+	
+}
+
+.form-group {
+	display: flex;
+	align-items: center;
+	margin: 10px 0px;
+}
+
+.form-group label {
+	font-size: 18px;
+	text-transform: capitalize;
+	width: 20%;
+}
+
+.form-group input {
+	width: 80%;
+	height: 40px;
+}
+
+.size {
+	width: 80%;
+	display: flex;
+}
+
+.size  .form-group {
+	flex-direction: column;
+}
+
+.size  .form-group label {
+	width: 100%;
+	text-align: center;
+}
+
+.size .form-group {
+	width: 40%;
+}
+
+.pop-up {
+	background-color: rgba(0, 0, 0, 0.301);
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 99;
+	display: flex;
+}
+
+.pop-up form {
+	width: 60%;
+	background-color: #fff;
+	margin: auto;
+	padding: 20px;
+	border-radius: 4px;
+}
+
+.buttonAddProduct {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.buttonAddProduct button {
+	height: 40px;
+	width: 120px;
+}
+
+.size-form {
+	display: flex;
+	align-items: center;
+}
+
+.size-form label {
+	margin-right: 10px;
+}
+
+.size-form input {
+	
+}
+
+.quantity-form input {
+	height: 30px;
+	margin-bottom: 10px;
+}
+.d-none{
+	display: none;
+}

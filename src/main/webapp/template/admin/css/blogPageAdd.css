@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+.formPost{
+	width: 85%;
+}
+.form-post {
+	width: 100%;
+	display: flex;
+	padding: 20px 50px;
+}
+
+.box-form {
+	width: 70%;
+	margin-right: 20px;
+}
+
+.box-form .blog input {
+	padding: 10px 0px;
+	font-size: 40px;
+	outline: none;
+	border: none;
+}
+
+.blog textarea {
+	width: 100%;
+	min-height: 800px;
+	font-size: 20px;
+	padding: 10px;
+}
+
+.box-category-post {
+	padding: 20px;
+	width: 30%;
+}
+
+.box-category-post .blog{
+	margin-bottom: 30px;
+}
+
+.box-category-post label {
+	font-size: 20px;
+}
+
+.input-tag {
+	display: block;
+	margin-top: 20px;
+	padding: 10px 10px;
+	width: 100%;
+}
+
+.form-input-radio {
+	margin-bottom: 20px;
+}
+
+.radio-group {
+	margin-bottom: 10px;
+}
+
+.radio-group label {
+	font-size: 22px;
+}
+
+.radio-group.other .topicOther {
+	display: none;
+	margin-left: 10px;
+	padding: 6px;
+	border-radius: 2px;
+	font-size: 16px;
+	outline: none;
+}
+
+.radio-group.other .topicOther.active {
+	display: block;
+}

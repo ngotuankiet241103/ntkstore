@@ -1,0 +1,8 @@
+@charset "UTF-8";
+.section-product{
+	padding: 50px 0px;
+}
+.section-product .text-center{
+	font-size: 22px;
+	text-align: center;
+}

@@ -1,0 +1,68 @@
+@charset "UTF-8";
+.linkProduct{
+	text-decoration: none;
+}
+.homepage__primary-info-item{
+	font-size: 18px;
+	text-transform: capitalize;
+	text-align: center;
+	color: #000;
+}
+.homepage__primary-info-price{
+	font-size: 16px;
+	text-align: center;
+}
+.price{
+	margin-bottom: 10px;
+}
+.varient-input{
+	margin-bottom: 20px;
+}
+.varient-input .d-none{
+	display: none;
+}
+.footerOrder{
+	padding-top: 20px;
+	border-top: 1px solid #ccc;
+	display: flex;
+	justify-content: flex-end;
+}
+.footerOrder a{
+	text-decoration:  none;
+	line-height: 40px;
+	text-align: center;
+	width: 120px;
+	height: 40px;
+	border: 1px solid blue;
+	background-color: transparent;
+	font-size: 16px;
+	color: blue;
+}
+.box-comment{
+	width: 1200px;
+	margin: 0 auto;
+	
+}
+.title-comment{
+	font-size: 22px;
+}
+.box-comment .list-comment{
+	display: flex;
+	margin:  0 -8px;
+}
+.box-comment .list-comment > li{
+	width: 25%;
+	background-color: #fff;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	padding: 12px;
+	margin-bottom: 12px;
+	border-radius: 8px;
+	list-style: none;
+	
+}
+.list-comment li .rating li{
+	margin-right: 10px;
+}
+.list-comment li .rating li img{
+	width: 26px;
+}

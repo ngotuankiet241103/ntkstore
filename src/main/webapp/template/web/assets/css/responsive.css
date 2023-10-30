@@ -1,0 +1,71 @@
+/* Tablet-Moblie */
+@media (max-width:1023px){
+    :root{
+        --header-height: 70px;
+        --navbar-height: 0px;
+        --navbar-with-search-height: var(--height-header) - var(--navbar-height) !important;
+    }
+    .hide-on-mobile-tablet{
+        display: none;
+    }
+    .header{
+        height: var(--header-height);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 99;
+    }
+    .header__content{
+        height: var(--header-height);
+        margin-top: 0px;
+        
+    }
+    .header__content-search{
+        height: 20%;
+    }
+    .header__content-center{
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+    }
+    .header__content-search{
+        width: 100%;
+        height: 46px;
+        
+    }
+   
+    .header__content-search-text{
+        width: 30%;
+    }
+    .header__sort-bar{
+        display: flex;
+       
+    }
+    .container{
+        margin-top: 106px;
+    }
+    .mobile-category{
+        display: block;
+    }
+}
+@media(min-width: 739px) and (max-width:1023px){
+    .hide-on-tablet{
+        display: none;
+    }
+   
+}
+@media(max-width: 739px){
+    .hide-on-mobile{
+        display: none;
+    }
+    .homepage__primary-pagination{
+        margin: 24px 0px;
+    }
+    .pagination__item{
+        margin: 0;
+    }
+    .pagination__item-link{
+        min-width: 38px;
+    }
+}
