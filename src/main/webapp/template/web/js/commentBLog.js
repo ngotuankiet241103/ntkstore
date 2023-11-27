@@ -1,4 +1,4 @@
-
+  
 function commentBlog(api) {
 	fetch(api)
 		.then(response => response.json())
@@ -8,7 +8,7 @@ function commentBlog(api) {
 			const modalComment = document.querySelector('.modal-comment')
 			showModalComment.onclick = () => {
 				modalComment.classList.add("active")
-				handleBoxComment(object, null)
+				handleBoxComment(object, userId)
 				const closeModelComment = document.querySelector('.header-close > i')
 				closeModelComment.onclick = () => modalComment.classList.remove("active")
 			}
@@ -55,8 +55,8 @@ function handleCommentRoot() {
 			console.log(commentData)
 			postComment(commentData)
 				.then(response => {
-					if (response === 200) {
-						console.log("success")
+					if (response.status === 200) {
+						location.reload();
 					}
 				})
 		};
@@ -111,7 +111,7 @@ function handleBoxComment(object, userId) {
 	let html = "";
 	const commentRoot = document.querySelector(".rootComment");
 
-	if (userId != null) {
+	if (userId != "") {
 		let textCommentRoot = ` 
 	      <input
 	        type="text"
@@ -137,7 +137,7 @@ function handleBoxComment(object, userId) {
               <div class="comment-root" data-index="${cmt.tree_id}" data-id="${cmt.id}">
                 <div class="comment-drx2">
                   <div class="box-authorComment">
-                    <div class="nameUser-comment">Người dùng ẩn danh</div>
+                    <div class="nameUser-comment">${cmt.user.fullName}</div>
                     <div class="content-comment">${cmt.comments}</div>
                   </div>`;
 				if (userId != null) {
@@ -322,11 +322,11 @@ function handleBoxComment(object, userId) {
 						data.substring(
 							data.indexOf("@") + 1,
 							data.indexOf(`${user}`) + user.length
-						) +
+						)  +
+						"<spann>" +
+						data.substring(data.indexOf(`${user}`) + user.length, data.length) + "</" + "span>" +
 						"</" +
-						"span>" +
-						"<p>" +
-						data.substring(data.indexOf(`${user}`), data.length);
+						"span>";
 					const blogId = document.querySelector('input[name="blogId"]').value;
 					const commentData = {
 						blogId,

@@ -51,17 +51,17 @@ public class CartService implements ICartService {
 		System.out.println(cart);
 		CartItemEntity cartEntity = modelMapper.toMapper().map(cart, CartItemEntity.class);
 
-		System.out.println(cartEntity);
+		System.out.println(cart.getProductId());
 		cartEntity.setProduct(productRepository.findById(cart.getProductId()));
 		cartEntity.setCart(cartCurrent);
-		System.out.println(cartRepository.save(cartEntity));
+		
 		return cartRepository.save(cartEntity);
 	}
 
 	@Override
 	public CartsEntity getCartByUserId(Long userId) {
-		System.out.println(cartsRepository.findByUserId(userId));
-		return cartsRepository.findByUserId(userId);
+		CartsEntity cart = cartsRepository.findByUserId(userId);
+		return cart != null ? cart : new CartsEntity();
 	}
 
 	@Override

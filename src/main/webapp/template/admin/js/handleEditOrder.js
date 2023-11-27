@@ -16,7 +16,7 @@ function handleEditOrder(id) {
     const html = `
         <div class="formEditOrder">
 	    		 <div class="header-formEdit">
-	                <span onclick=removeFormEdit(popUp)>&times;</span>
+	                <span onclick=removeFormEdit(${popUp})>&times;</span>
 	            </div>
               <div class="form-group">
               <h4 for="">Mã đơn hàng</h4> 
@@ -57,7 +57,7 @@ function handleEditOrder(id) {
     popUp.classList.remove("d-none")
   }
 }
-function removeFromEdit(popUp) {
+function removeFormEdit(popUp) {
   popUp.classList.add("d-none")
 }
 function handleUpdateForm(id) {
@@ -84,4 +84,7 @@ function updateOrderDetails(id, data) {
   console.log(JSON.stringify(data))
   fetch(api + "/" + id, option)
     .then(response => response.json())
+    .then(response => {
+		
+		})
 }

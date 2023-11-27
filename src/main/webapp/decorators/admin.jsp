@@ -33,9 +33,10 @@
 	rel="stylesheet">
 <link href="<c:url value= '/template/admin/css/blogPageAdd.css' />"
 	rel="stylesheet">
-	<link href="<c:url value= '/template/admin/css/user.css' />"
+<link href="<c:url value= '/template/admin/css/user.css' />"
 	rel="stylesheet">
-
+<link href="<c:url value= '/template/admin/css/additional.css' />"
+	rel="stylesheet">
 </head>
 
 <body>

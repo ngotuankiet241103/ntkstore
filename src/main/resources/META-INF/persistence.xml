@@ -20,6 +20,6 @@
 		<class>tabiMax.entity.BlogEntity</class>
 		<class>tabiMax.entity.TagEntity</class>
 		<class>tabiMax.entity.TopicEntity</class>
-		<class>tabiMax.entity.abc</class>
+		<class>tabiMax.entity.CancelOrderEntity</class>
 	</persistence-unit>
 </persistence>

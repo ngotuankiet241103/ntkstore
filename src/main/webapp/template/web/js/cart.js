@@ -34,7 +34,8 @@ const minus = document.querySelector('.minus')
 let inputValue = document.querySelector('.input').value;
 let input = document.querySelector('.input');
 const plus = document.querySelector('.plus')
-const price = document.querySelector('.price').innerText;
+const price = document.querySelector('.final-price') != null ? document.querySelector('.final-price').innerText : document.querySelector('.price').innerText;
+console.log(price)
 input.value = inputValue
 totalPrice(inputValue, price)
 console.log("b")
@@ -113,6 +114,7 @@ function getValueToObject() {
 		"quanlity": parseInt(quanlity),
 		"totalPrice": total
 	}
+	console.log(product)
 	return product;
 }
 function addProduct(data) {
@@ -125,5 +127,5 @@ function addProduct(data) {
 
 }
 function hanldeAfterAddToCart(response) {
-	window.location.href = "http://localhost:8080/e-commerceSpringMvc/trang-chu";
+	
 }

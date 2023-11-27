@@ -66,6 +66,7 @@ function callback(response) {
 		}
 	});
 }
+
 function store() {
 	fetch(order)
 		.then(response => {
@@ -73,7 +74,7 @@ function store() {
 			return response.json()
 		})
 		.then(response => {
-			callback(response)
+			render(response)
 			console.log(response)
 			pagination({
 				page: "#pagination",
@@ -119,6 +120,7 @@ function store() {
 			});
 		})
 }
+
 function render(orders) {
 	const listOrder = document.querySelector('.listOrder')
 
@@ -139,7 +141,7 @@ function render(orders) {
 
 			return `<li class="detailsOrderItem">
                   <div class="image-orderItem">
-                    <img src="https://cdn.britannica.com/35/238335-050-2CB2EB8A/Lionel-Messi-Argentina-Netherlands-World-Cup-Qatar-2022.jpg" alt="">
+                    <img src="${orderItem.product.image}" alt="">
                   </div>
                   <div class="infoOrderItem">
                     <p class="name-orderItem">${orderItem.product.name}</p>
@@ -156,14 +158,17 @@ function render(orders) {
                   </div>
               </li>`
 		}).join('')
-		const url = window.location.href.indexOf("?") > 0 ? window.location.href.subString(0, window.location.href.indexOf("?"))  : window.location.href
-		if( order.status === "Đã giao hàng"){
-			html +=  `<footer class="footerOrder"><a href="${url}/view?code=${order.code}">Xem chi tiết</a</footer>`
+		const url = window.location.href.indexOf("?") > 0 ? window.location.href.substring(0, window.location.href.indexOf("?")) : window.location.href
+		if (order.status === "Đã giao hàng") {
+			html += `<footer class="footerOrder">`
+			html += getBtnRefundOrder(order.createdDate) ? `<a href="${url}/view/refund?code=${order.code}">Hoàn hàng</a>` : ""
+			html += `<a href="${url}/view?code=${order.code}">Xem chi tiết</a>`
+			html += `</footer>`
 		}
-		else if(order.status === "Đang xử lý"){
-			html += `<footer class="footerOrder"> <a href="#">Hủy đơn hàng</a></footer>`
+		else if (order.status === "Đang xử lý") {
+			html += `<footer class="footerOrder"> <a href="${url}/view/cancel?code=${order.code}">Hủy đơn hàng</a></footer>`
 		}
-		 
+
 
 		html += `
             </ul>
@@ -174,6 +179,18 @@ function render(orders) {
 	}).join('');
 
 	listOrder.innerHTML = htmls
+}
+function getBtnRefundOrder(date){
+	console.log(date)
+	const newDate = new Date(date);
+	newDate.setDate(newDate.getDate()  + 14);
+	const curruntDay = Date.now();
+	console.log(newDate, curruntDay);
+	if(newDate > curruntDay){
+		return true;
+	}
+	return false;
+	
 }
 const categoryStatusOrder = document.querySelectorAll('.orderStatus')
 categoryStatusOrder.forEach(category => {
@@ -192,60 +209,57 @@ categoryStatusOrder.forEach(category => {
 
 		}
 
-		getOrderByOrderStatus(render);
+		getOrderByOrderStatus();
 	}
 
 })
-function getOrderByOrderStatus(callback) {
-	fetch(order)
-		.then(response => {
-			console.log(response)
-			return response.json()
-		})
-		.then(response => {
-			callback(response)
-			console.log(response.paginartion.pageStart)
-			console.log(response.paginartion.totalsPage)
-			pagination({
-				page: "#pagination",
-				pageItem: "page-item",
-				pageIcon: "page-icon",
-				totalPage: response.paginartion.totalsPage,
-				startPage: response.paginartion.pageStart,
-				visiblePages: Math.floor(response.paginartion.totalsPage / 2),
-				onPageClick: function(page) {
-					const currentUrl = window.location.href;
-					let newUrl;
-					const index = order.indexOf("page")
-					const urlIndex = currentUrl.indexOf("page");
+function getOrderByOrderStatus() {
+	apiRequestMethodGet(order,handleDataOrder)
+		
+}
+function handleDataOrder(response) {
+	render(response)
+	console.log(response.paginartion.pageStart)
+	console.log(response.paginartion.totalsPage)
+	pagination({
+		page: "#pagination",
+		pageItem: "page-item",
+		pageIcon: "page-icon",
+		totalPage: response.paginartion.totalsPage,
+		startPage: response.paginartion.pageStart,
+		visiblePages: Math.floor(response.paginartion.totalsPage / 2),
+		onPageClick: function(page) {
+			const currentUrl = window.location.href;
+			let newUrl;
+			const index = order.indexOf("page")
+			const urlIndex = currentUrl.indexOf("page");
 
-					if (index > 1 && urlIndex > 1) {
-						newUrl = currentUrl.substring(0, urlIndex) + "page=" + page;
-						order = order.substring(0, index) + "page=" + page
-						getOrderByOrderStatus(callback);
-					}
-					else if (window.location.href.indexOf("?") > 1) {
-						newUrl = currentUrl + "&page=" + page;
-						order += "&page=" + page;
-						getOrderByOrderStatus(callback);
-					}
-					else if (window.location.href.indexOf("?") < 1) {
-						newUrl = currentUrl + "?page=" + page;
-						order += "?page=" + page;
-						console.log("3" + api);
-						getOrderByOrderStatus(callback);
-					}
+			if (index > 1 && urlIndex > 1) {
+				newUrl = currentUrl.substring(0, urlIndex) + "page=" + page;
+				order = order.substring(0, index) + "page=" + page
+				getOrderByOrderStatus(callback);
+			}
+			else if (window.location.href.indexOf("?") > 1) {
+				newUrl = currentUrl + "&page=" + page;
+				order += "&page=" + page;
+				getOrderByOrderStatus(callback);
+			}
+			else if (window.location.href.indexOf("?") < 1) {
+				newUrl = currentUrl + "?page=" + page;
+				order += "?page=" + page;
+				console.log("3" + api);
+				getOrderByOrderStatus(callback);
+			}
 
-					history.pushState({}, 'New Page', newUrl);
-				},
-				handleNextPage: function() {
-					this.onPageClick(this.startPage + 1);
-				},
-				handlePrevPage: function() {
-					this.onPageClick(this.startPage - 1);
-				}
-			});
-		})
+			history.pushState({}, 'New Page', newUrl);
+		},
+		handleNextPage: function() {
+			this.onPageClick(this.startPage + 1);
+		},
+		handlePrevPage: function() {
+			this.onPageClick(this.startPage - 1);
+		}
+	});
 }
 function paramSearch(api) {
 	const currentUrl = window.location.href;

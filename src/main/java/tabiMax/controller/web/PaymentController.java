@@ -10,7 +10,7 @@ import tabiMax.contraint.PaymentStatus;
 import tabiMax.service.IOderService;
 
 @Controller
-public class PaymentControoler {
+public class PaymentController {
 	@Autowired
 	private IOderService orderService;
 	@GetMapping("/payment")

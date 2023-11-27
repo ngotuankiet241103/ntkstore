@@ -63,6 +63,7 @@
 				<input type="hidden" name="starRate"> <input type="hidden"
 					name="productId" value="${orderItem.product.id}">
 			</form>
+			<input type="hidden" name="orderItemId" value="${orderItem.id}">
 		</div>
 	</div>
 	<script src=" <c:url value='/template/web/js/reviewOrder.js'/>"></script>

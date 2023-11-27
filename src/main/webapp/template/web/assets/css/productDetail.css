@@ -10,16 +10,13 @@
 .realtedProduct{
 	
 }
-.list-RelatedProduct{
-	width: 1400px;
-	margin: 0 auto;
-}
+
 
 .list-newRelatedProduct ul {
 	display: flex;
-	margin-left: -8px;
-	margin-right: -8px;
 	list-style: none;
+	width: 1400px;
+	margin: 0 auto;
 }
 .relatedProduct ul li{
 	width: 25%;
@@ -54,10 +51,16 @@
 	color: #000;
 }
 
-.itemLink-related-collection .detailsRelatedItem span {
+.itemLink-related-collection .detailsRelatedItem > span {
 	display: block;
 	text-align: center;
-	font-size: 16px;
+	font-size: 12px;
 	font-weight: 600;
-	color: #000;
+	color: #ccc;
+}
+.name-product{
+	text-transform: capitalize;
+}
+.content-product > p{
+	font-size: 16px;
 }

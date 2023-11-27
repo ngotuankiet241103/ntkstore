@@ -23,12 +23,7 @@ public class OrderEntity extends BaseEntity {
 
 	@Column
 	private String status;
-	@Override
-	public String toString() {
-		return "OrderEntity [code=" + code + ", total=" + total + ", status=" + status + ", detailStatus="
-				+ detailStatus + ", paymentStatus=" + paymentStatus + ", paymentMethod=" + paymentMethod
-				+ ", detailsOrder=" + detailsOrder + ", user=" + user + ", orderItems=" + orderItems + "]";
-	}
+	
 
 	@Column
 	private String detailStatus;
@@ -39,6 +34,9 @@ public class OrderEntity extends BaseEntity {
 	@OneToOne
 	@JoinColumn(name = "refundOrder_id")
 	private RefundOrderEntity refundOrder;
+	@OneToOne
+	@JoinColumn(name = "cancelOrder_id")
+	private CancelOrderEntity cancelOrder;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "detailsOrder_id")
 	private DetailsOrder detailsOrder;
@@ -47,11 +45,27 @@ public class OrderEntity extends BaseEntity {
 	private UserEntity user;
 	@OneToMany(mappedBy = "order",fetch = FetchType.EAGER)
 	private Set<OrderItemEntity> orderItems = new HashSet<>();
-
+	
 	public OrderEntity() {
 
 	}
 	
+	public RefundOrderEntity getRefundOrder() {
+		return refundOrder;
+	}
+
+	public void setRefundOrder(RefundOrderEntity refundOrder) {
+		this.refundOrder = refundOrder;
+	}
+
+	public CancelOrderEntity getCancelOrder() {
+		return cancelOrder;
+	}
+
+	public void setCancelOrder(CancelOrderEntity cancelOrder) {
+		this.cancelOrder = cancelOrder;
+	}
+
 	public OrderEntity(String code, float total, String status, String detailStatus, String paymentStatus,
 			String paymentMethod, RefundOrderEntity refundOrder, DetailsOrder detailsOrder, UserEntity user,
 			Set<OrderItemEntity> orderItems) {
@@ -149,5 +163,11 @@ public class OrderEntity extends BaseEntity {
 
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
+	}
+	@Override
+	public String toString() {
+		return "OrderEntity [code=" + code + ", total=" + total + ", status=" + status + ", detailStatus="
+				+ detailStatus + ", paymentStatus=" + paymentStatus + ", paymentMethod=" + paymentMethod
+				+ ", detailsOrder=" + detailsOrder + ", user=" + user + ", orderItems=" + orderItems + "]";
 	}
 }

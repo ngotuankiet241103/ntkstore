@@ -22,6 +22,7 @@ public interface IUserService {
 
 	void save(UserDTO user);
 	UserEntity findByEmail(String email);
+	UserDTO findByEmails(String email);
 
 	UserEntity findByFullName(String fullName);
 

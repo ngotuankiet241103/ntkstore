@@ -18,8 +18,26 @@ items.forEach((item, index, arr) => {
 			image.src = `http://localhost:8080/e-commerceSpringMvc/template/web/assets/images/star-yellow.png`
 		}
 		btnSubmit.onclick = () => {
-			document.querySelector('.form-comment').submit();
+			const id = document.querySelector('input[name="orderItemId"]').value
+			updateStatus(id);
+			document.querySelector('.form-reviews').submit();
 
 		};
 	};
 });
+function updateStatus(id){
+	const data = {
+		isReview: true
+	}
+	const option = {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(data)
+	}
+	fetch("http://localhost:8080/e-commerceSpringMvc/api/orderitem/status/"+id,option)
+		.then(response => {
+			console.log(response);
+		})
+}

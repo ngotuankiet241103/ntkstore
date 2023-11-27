@@ -12,7 +12,9 @@ public class OrderItemDTO {
 	private Long productId;
 	
 	private ProductEntity product;
-
+	
+	private boolean isReview;
+	
 	public OrderItemDTO(float totalPrice, String size, int quanlity) {
 	
 		this.totalPrice = totalPrice;
@@ -75,5 +77,16 @@ public class OrderItemDTO {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
+
+
+	public boolean isReview() {
+		return isReview;
+	}
+
+
+	public void setReview(boolean isReview) {
+		this.isReview = isReview;
+	}
+	
 
 }

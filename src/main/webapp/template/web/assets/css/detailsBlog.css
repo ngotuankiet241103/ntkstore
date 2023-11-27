@@ -1,15 +1,27 @@
 
 .content-blog {
-	width: 800px;
+	width: 1000px;
 	margin: 0 auto;
 }
 
 .content-blog-container {
 	padding: 50px;
 }
-
+.content-blog-container h3{
+	font-size: 24px;
+	margin-bottom: 12px;
+}
+.content-blog-container .author{
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+.content p{
+	font-size: 16px;
+	line-height: 1.4;
+}
 .comment-item {
 	list-style: none;
+	
 }
 
 .box-authorComment {
@@ -108,7 +120,9 @@
 .userReply {
 	color: rgb(56, 205, 56);
 }
-
+.userReply span{
+	color: #000;
+}
 .show, .hidden {
 	display: flex;
 	align-items: center;

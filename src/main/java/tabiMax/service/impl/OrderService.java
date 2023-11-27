@@ -3,6 +3,7 @@ package tabiMax.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -10,20 +11,26 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import tabiMax.contraint.OrderStatus;
+import tabiMax.dto.CancelOrderDTO;
 import tabiMax.dto.DetailsOrderDTO;
 import tabiMax.dto.OrderDTO;
+import tabiMax.dto.RefundOrderDTO;
+import tabiMax.entity.CancelOrderEntity;
 import tabiMax.entity.OrderEntity;
 import tabiMax.entity.OrderItemEntity;
 import tabiMax.entity.ProductEntity;
+import tabiMax.entity.RefundOrderEntity;
 import tabiMax.modelMapper.modelMapper;
 import tabiMax.paging.pageRequest;
+import tabiMax.repository.ICancelOrderRepository;
 import tabiMax.repository.IOrderItemRepository;
 import tabiMax.repository.IOrderRepository;
 import tabiMax.repository.IProductRepository;
+import tabiMax.repository.IRefundOrderRepository;
 import tabiMax.service.IOderService;
 
 @Service
@@ -34,7 +41,10 @@ public class OrderService implements IOderService {
 	private IOrderItemRepository orderItemRepository;
 	@Autowired
 	private IProductRepository productRepository;
-
+	@Autowired
+	private ICancelOrderRepository cancelOrderRepository;
+	@Autowired
+	private IRefundOrderRepository refundOrderRepository;
 	@Override
 	public OrderEntity save(OrderEntity orderEntity) {
 		return orderRepository.save(orderEntity);
@@ -211,6 +221,39 @@ public class OrderService implements IOderService {
 	public OrderEntity findOrderByCode(String code) {
 		
 		return orderRepository.findByCode(code).orElseThrow(() -> new RuntimeException("order not found"));
+	}
+	@Transactional
+	@Override
+	public void cancelOrder(CancelOrderDTO cancelOrderDTO) {
+		
+		orderRepository.updateAllStatus(OrderStatus.common_cancel, OrderStatus.details_cancel, cancelOrderDTO.getOrderId());
+		OrderEntity orderEntity = orderRepository.findById(cancelOrderDTO.getOrderId());
+		updateQuanlity(orderEntity);
+		CancelOrderEntity cancelOrderEntity = new CancelOrderEntity();
+		cancelOrderEntity.setReason(cancelOrderDTO.getReason());
+		cancelOrderEntity.setOrderEntity(orderEntity);
+		cancelOrderRepository.save(cancelOrderEntity);
+	}
+	@Transactional
+	@Async
+	private void updateQuanlity(OrderEntity orderEntity) {
+		Set<OrderItemEntity> orderItemEntities = orderEntity.getOrderItems();
+		for(OrderItemEntity o : orderItemEntities) {
+			ProductEntity productEntity = productRepository.findById(o.getProduct().getId());
+			Integer sizeOfProduct = productEntity.getSizeQuantityMap().get(o.getSize());
+			Integer total = sizeOfProduct + o.getQuantity();
+			productRepository.updateSizeQuantity(o.getSize(), total, productEntity.getId());
+		}
+	}
+	@Transactional
+	@Override
+	public void refundOrder(RefundOrderDTO refundOrderDTO) {
+		orderRepository.updateAllStatus(OrderStatus.common_refund, OrderStatus.details_refund, refundOrderDTO.getOrderId());
+		RefundOrderEntity refundOrder = new RefundOrderEntity();
+		refundOrder.setReason(refundOrderDTO.getReason());
+		refundOrder.setOrderEntity(orderRepository.findById(refundOrderDTO.getOrderId()));
+		refundOrder.setImage(refundOrderDTO.getImage());
+		refundOrderRepository.save(refundOrder);
 	}
 
 }

@@ -9,13 +9,24 @@ public class CartItemDTO {
 	private String size;
 
 	private int quanlity;
-	@JsonIgnore
+	
 	private Long productId;
 
 	private ProductDTO product;
 	
+	public CartItemDTO() {
+		
+	}
+	
+	public CartItemDTO(float totalPrice, String size, int quanlity, Long productId) {
+		this.totalPrice = totalPrice;
+		this.size = size;
+		this.quanlity = quanlity;
+		this.productId = productId;
+	}
+
 	public CartItemDTO(float totalPrice, String size, int quanlity) {
-		super();
+		
 		this.totalPrice = totalPrice;
 		this.size = size;
 		this.quanlity = quanlity;

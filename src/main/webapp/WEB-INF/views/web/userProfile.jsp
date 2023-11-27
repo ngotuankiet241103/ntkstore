@@ -28,23 +28,7 @@
 			<div class="userProfile">
 				<div class="box-userProfile">
 					<div class="my-profile">
-						<div class="profile-item">
-							<h3 class="profile-item-title">Họ tên</h3>
-							<div class="profile-item-info">Tên khách hàng</div>
-						</div>
-						<div class="profile-item">
-							<h3 class="profile-item-title">Địa chỉ email</h3>
-							<div class="profile-item-info">abc123@gmail.com</div>
-						</div>
-						<div class="profile-item">
-							<h3 class="profile-item-title">Số điện thoại</h3>
-							<div class="profile-item-info">0123456789</div>
-						</div>
-						<div class="profile-item">
-							<h3 class="profile-item-title">Mật khẩu</h3>
-							<input type="password" class="profile-item-info"
-								value="0123456789" disabled />
-						</div>
+						
 					</div>
 					<div class="my-profile-ft">
 						<button href="#/profile/edit" class="edit-profile">Chỉnh
@@ -55,6 +39,7 @@
 
 		</div>
 	</div>
+	<script type="module" src=" <c:url value='/template/web/js/handleProfile.js'/>"></script>
 	<script type="module"
 		src=" <c:url value='/template/web/js/changeLayoutEdit.js'/>"></script>
 </body>

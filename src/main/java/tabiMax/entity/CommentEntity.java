@@ -2,6 +2,7 @@ package tabiMax.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -18,8 +19,7 @@ public class CommentEntity extends BaseEntity {
 	private int node_right;
 	@Column
 	private Long parent_id;
-	@ManyToOne
-	@JsonIgnore
+	@ManyToOne(fetch =  FetchType.EAGER)
 	private UserEntity user;
 	
 	@ManyToOne

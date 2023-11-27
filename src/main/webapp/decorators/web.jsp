@@ -56,10 +56,14 @@
 	href="<c:url value ='/template/web/assets/css/reviewOrder.css'/>">
 <link rel="stylesheet"
 	href="<c:url value ='/template/web/assets/css/blog.css'/>">
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="<c:url value ='/template/web/assets/css/detailsBlog.css'/>">
-		<link rel="stylesheet"
-	href="<c:url value ='/template/web/assets/css/productDetails.css'/>">
+<link rel="stylesheet"
+	href="<c:url value ='/template/web/assets/css/productDetail.css'/>">
+<link rel="stylesheet"
+	href="<c:url value ='/template/web/assets/css/customPageSearch.css'/>">
+	<link rel="stylesheet"
+	href="<c:url value ='/template/web/assets/css/custom.css'/>">
 </head>
 <body>
 	<%@include file="/common/web/header.jsp"%>

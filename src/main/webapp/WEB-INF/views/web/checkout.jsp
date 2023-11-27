@@ -148,9 +148,10 @@
      })
 		function redirectResponse(url) {
 			const curUrl = window.location.href;
-			if(curUrl.indexOf("?") > 0){
+			const pay = document.querySelector('input[type="radio"]:checked')
+			 if (!(pay.id == "payAfter")) {
 				var option = {
-						method: "DELETE",
+						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
 						},

@@ -36,6 +36,10 @@ public class loginController {
 		ModelAndView mav = new ModelAndView("login/login");
 		return mav;
 	}
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutPage() {
+		return "redirect:/trang-chu";
+	}
 	@RequestMapping(value = "/admin/authenticated", method = RequestMethod.GET)
 	public ModelAndView loginAdminPage() {
 		ModelAndView mav = new ModelAndView("login/authenticated");

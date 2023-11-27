@@ -23,7 +23,7 @@
 
 		</div>
 	</div>
-	<
+	
 	<div class="modal-comment">
 		<div class="form-comment">
 			<div class="header-close">

@@ -8,9 +8,11 @@ function renderCategory(data) {
 	let html = "";
 	console.log(data)
 	data.forEach((category,index,arr) => {
+		console.log(arr)
 		html += `<li class="submenu-item tops"><a
 										href="${url}/collections/${category.name}"
-										class="submenu-item-link">${category.name}</a>`
+										class="submenu-item-link">${category.name}</a> </li>`
+		console.log(index)
 	fetch(`http://localhost:8080/e-commerceSpringMvc/api/category/details/${category.id}/category`)
 			.then(response => response.json())
 			.then(response => {
@@ -37,5 +39,9 @@ function renderCategory(data) {
 			
 		
 	})
+	
+}
+function renderDetailsCategory(){
+	const categories = document.querySelectorAll("submenu-item");
 	
 }

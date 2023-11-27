@@ -48,7 +48,9 @@
 									<span>${item.quantity}</span>
 								</div>
 								<div class="reviewOrderItem">
-									<a href=" <c:url value = '/customer/order/view/review?orderItemId=${item.id}' />">Viết nhận xét</a>
+									
+										<a href=" <c:url value = '/customer/order/view/review?orderItemId=${item.id}' />">Viết nhận xét</a>
+									
 								</div>
 							</li>
 						</c:forEach>

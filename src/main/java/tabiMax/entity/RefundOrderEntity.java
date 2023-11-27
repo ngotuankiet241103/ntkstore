@@ -2,6 +2,7 @@ package tabiMax.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,6 +14,15 @@ public class RefundOrderEntity extends BaseEntity{
 	private String image;
 	@Column
 	private String refundStatus;
+	@OneToOne
+	private OrderEntity orderEntity;
+	
+	public OrderEntity getOrderEntity() {
+		return orderEntity;
+	}
+	public void setOrderEntity(OrderEntity orderEntity) {
+		this.orderEntity = orderEntity;
+	}
 	public String getReason() {
 		return reason;
 	}

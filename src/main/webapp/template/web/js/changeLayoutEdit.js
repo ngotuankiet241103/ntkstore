@@ -2,7 +2,7 @@ import { user } from './header.js';
 const btnEdit = document.querySelector(".edit-profile");
 
 
-btnEdit.onclick = function a()  {
+btnEdit.onclick = function a() {
 	changeLayoutEdit();
 };
 function changeLayoutEdit() {
@@ -43,7 +43,7 @@ function render(response) {
       <h3 class="profile-item-title">Số điện thoại</h3>
       <input
         type="text"
-        value="${response.phone}"
+        value="${response.phone != null ? response.phone : ""}"
         class="profile-item-info input"
         name="phone"
       />
@@ -62,26 +62,31 @@ function render(response) {
     </div>
   </div>
   <div class="my-profile-ft">
-    <button class="edit-profile" onclick=handleUserEdit(${response.id})>Chỉnh sửa</button>
+    <button class="edit-profile" >Chỉnh sửa</button>
   </div>
 </div>
 </div>`;
 	detailsProfile.innerHTML = htmls;
+	handleUserEdit(response.id);
 	startEdit()
 }
-
 function handleUserEdit(id) {
+	const btnEdit = document.querySelector('.edit-profile')
+	btnEdit.onclick = () => {
+		const inputs = document.querySelectorAll('input');
+		const userProfile = {}
+		inputs.forEach(input => {
+			if (input.name != "") {
+				userProfile[input.name] = input.value;
+			}
+		})
+		updateProfileUser(id, userProfile, render)
+	}
 
-	const inputs = document.querySelectorAll('input');
-	const userProfile = {}
-	inputs.forEach(input => {
-		if (input.name != "") {
-			userProfile[input.name] = input.value;
-		}
-	})
-	updateProfileUser(id, userProfile, render)
 }
+
 function startEdit() {
+
 	const editPassword = document.querySelector(
 		".profile-item.input .profile-item-title span"
 	);

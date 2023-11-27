@@ -34,7 +34,18 @@ a
 
 					<div class="content-product">
 						<h1 class="name-product">${product.name}</h1>
-						<div class="price">${product.price}</div>
+						<c:if test="${product.discount > 0}">
+							<div class="price-onsale">
+								<span class="price-sale"><span class="final-price">${product.price * (product.discount / 100)}</span>
+								</span> <span class="percent-sale">${product.discount}%</span>
+							</div>
+
+							<div class="price visible">${product.price}</div>
+						</c:if>
+						<c:if test="${product.discount <= 0}">
+							<div class="price">${product.price}</div>
+						</c:if>
+
 						<div class="listSize">
 							<c:if test="${product.status == 1}">
 
@@ -144,18 +155,30 @@ a
 		<div class="relatedProduct">
 			<h3 class="title-new-collection">Related Product</h3>
 			<div class="list-newRelatedProduct">
-				<ul class="new-arrivals">
+				<ul class="new-arrivals row list-RelatedProduct">
 					<c:forEach items="${products}" var="product">
-						<li class="item-related-collection"><a href="<c:url value = '/product/detail/${product.code}'/>"
+						<li class="item-related-collection col l-2-4 m-4 c-6 homepage__row"><a
+							href="<c:url value = '/product/detail/${product.code}'/>"
 							class="itemLink-related-collection">
 								<div class="image-relatedItem">
-									<img
-										src="${product.image}"
-										alt="" />
+									<img src="${product.image}" alt="" />
 								</div>
 								<div class="detailsRelatedItem">
 									<h5 class="detailsNewItem-name">${product.name}</h5>
-									<span class="detailsNewItem-price">${product.price}</span>
+									<c:if test="${product.discount > 0}">
+									<div class="all-price">
+											<span class="homepage__primary-info-price price-before-sale">
+												${product.price}đ </span> <span
+												class="homepage__primary-info-price price-on-sale">
+												${product.price - (product.price - (product.price * (product.discount / 100)))}đ
+											</span> <span class="save-price"> Save ${product.price * (product.discount / 100)}đ
+											</span>
+										</div>
+									</c:if>
+									<c:if test="${product.discount <= 0}">
+										<span class="detailsNewItem-price">${product.price}</span>
+									</c:if>
+									
 								</div>
 						</a></li>
 					</c:forEach>
@@ -188,7 +211,7 @@ a
 		
 		
 	</script>
-	<script type="module" src="<c:url value='/template/web/js/carts.js' />"></script>
+	<script type="module" src="<c:url value='/template/web/js/cart.js' />"></script>
 
 </body>
 </html>

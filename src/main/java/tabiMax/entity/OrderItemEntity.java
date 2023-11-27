@@ -13,20 +13,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "orderItem")
 public class OrderItemEntity extends BaseEntity {
 
-	
 	@Column
 	private int quantity;
 	@Column
 	private float totalPrice;
 	@Column
 	private String size;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	@JsonIgnore
-	
+
 	private OrderEntity order;
-	
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private ProductEntity product;
+	private boolean isReview;
+
 	public float getTotalPrice() {
 		return totalPrice;
 	}
@@ -51,10 +54,6 @@ public class OrderItemEntity extends BaseEntity {
 		this.size = size;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "product_id")
-	private ProductEntity product;
-
 	public int getQuantity() {
 		return quantity;
 	}
@@ -63,7 +62,6 @@ public class OrderItemEntity extends BaseEntity {
 		this.quantity = quantity;
 	}
 
-
 	public ProductEntity getProduct() {
 		return product;
 	}
@@ -71,6 +69,13 @@ public class OrderItemEntity extends BaseEntity {
 	public void setProduct(ProductEntity product) {
 		this.product = product;
 	}
-	
+
+	public boolean isReview() {
+		return isReview;
+	}
+
+	public void setReview(boolean isReview) {
+		this.isReview = isReview;
+	}
 
 }

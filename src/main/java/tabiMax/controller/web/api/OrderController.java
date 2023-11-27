@@ -1,11 +1,9 @@
 package tabiMax.controller.web.api;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +12,23 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import tabiMax.contraint.MaxPageItem;
-import tabiMax.entity.OrderEntity;
+import tabiMax.dto.CartItemDTO;
+import tabiMax.dto.OrderItemDTO;
 import tabiMax.paging.pageRequest;
 import tabiMax.service.IOderService;
+import tabiMax.service.IOrderItemService;
 
 @Controller("apiOrder")
 public class OrderController {
 	@Autowired
 	private IOderService orderService;
-
+	@Autowired
+	private IOrderItemService orderItemService;
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	@GetMapping("/api/order/user/{userId}")
 	public ResponseEntity<Map<String, Object>> getAllOrder(@PathVariable("userId") Long userId,
@@ -85,4 +88,11 @@ public class OrderController {
 
 		return ResponseEntity.ok(response);
 	}
+	@PutMapping("/api/orderitem/status/{id}")
+	public ResponseEntity<?> updateStatusOrder(@PathVariable("id") long id, @RequestBody OrderItemDTO orderItemDTO){
+		
+		return ResponseEntity.ok(orderItemService.updateStatusReview(id,orderItemDTO));
+		
+	}
+	
 }

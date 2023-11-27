@@ -113,16 +113,21 @@ export function apiRequestMethodPost(url, callback, data) {
 		});
 }
 function getRefeshToken(url, callback) {
-	const refeshToken = getCookieValue("refeshToken");
+	const refeshToken = {
+		refeshToken: getCookieValue("refeshToken")
+	};
 	var option = {
-		method: "PUT",
+		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify(refeshToken),
 	};
+	console.log(refeshToken)
 	fetch("http://localhost:8080/e-commerceSpringMvc/refesh-token", option)
+		.then(response => response.json())
 		.then((response) => {
+			
 			setToken(response);
 			return true;
 		})

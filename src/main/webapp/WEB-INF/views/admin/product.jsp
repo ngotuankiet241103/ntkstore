@@ -68,7 +68,8 @@
 						</c:choose>
 					</div> <span class="w-2">${product.price}</span> <span class="w-2">${result}</span>
 					<div class="w-2">
-						<span>delete</span>
+						<a href=" <c:url value='/admin/product/edit/${product.id}'/>"><i class="fa-solid fa-pen"></i></a>
+						<span><i class="fa-solid fa-trash"></i></span>
 					</div>
 				</li>
 			</c:forEach>
@@ -92,21 +93,29 @@
 					name="description" />
 				<textarea id="description" cols="74" rows="10"></textarea>
 			</div>
-			<div class="form-group">
-				<label for="">Phân loại</label> <select name="categoryId">
-					<c:forEach items="${category}" var="item">
-						<option value="${item.id}">${item.name}</option>
-					</c:forEach>
-				</select>
+			<div class="form-categories">
+				<div class="form-group">
+					<label for="">Phân loại</label> <select name="categoryId">
+						<c:forEach items="${category}" var="item">
+							<option value="${item.id}">${item.name}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="">Cụ thể phân loại</label> <select
+						name="categoryCommonId">
+						<c:forEach items="${categoryCommon}" var="item">
+							<option value="${item.id}">${item.name}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="">Giảm giá</label> <input type="text" name="discount"
+						class="name">
+				</div>
 			</div>
-			<div class="form-group">
-				<label for="">Cụ thể phân loại</label> <select
-					name="categoryCommonId">
-					<c:forEach items="${categoryCommon}" var="item">
-						<option value="${item.id}">${item.name}</option>
-					</c:forEach>
-				</select>
-			</div>
+
+			
 			<div class="form-group">
 				<label for="">Giá sản phẩm</label> <input type="text" name="price">
 			</div>

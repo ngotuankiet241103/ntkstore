@@ -60,9 +60,8 @@ export function renderView(orders) {
 	const listOrder = document.querySelector('.list-order')
 	let htmls = orders.orders.map(order => {
 		console.log(order.code)
-		return `<li class="order-item"><span>${order.code}</span> <span>nguyễn
-		                văn a</span> <span>${order.status}</span> <span>${order.paymentStatus}</span>
-		                <span>${order.paymentMethod}</span> <span>ngày đặt</span> <span>${order.total}</span>
+		return `<li class="order-item"><span>${order.code}</span> <span>${order.user.fullName}</span> <span>${order.status}</span> <span>${order.paymentStatus}</span>
+		                <span>${order.paymentMethod}</span> <span>${order.createdDate}</span> <span>${order.total}</span>
 		                <span class="editOrder" onclick=handleEditOrder(${order.id})>Cập nhập đơn hàng</span></li>`
 	}).join('');
 	htmls += `<ul class="pagination" id="pagination"></ul>`;

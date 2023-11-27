@@ -72,7 +72,8 @@ public class BlogController {
 	@GetMapping("/blog/{codeBlog}")
 	public String getDetailsBlog(@PathVariable("codeBlog") String code ,Model model) {
 		BlogDTO blog =  blogSerivce.findByCode(code);
-		String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String email = (String) SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println(email);
 		Long id = null;
 		if(email.contains("@")) {
 			UserEntity user = userService.findByEmail(email);

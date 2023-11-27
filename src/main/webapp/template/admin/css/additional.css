@@ -1,0 +1,12 @@
+@charset "UTF-8";
+.form-categories{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.form-categories > div{
+	
+}
+.form-categories > div > label{
+	width: 140px;
+}

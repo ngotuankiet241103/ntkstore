@@ -27,15 +27,34 @@
 			<div class="row home__product">
 				<c:forEach items="${model}" var="product">
 					<div class="col l-2-4 m-4 c-6 homepage__row">
+						<div class="title-sale">
+							Sale
+						</div>
 						<a href=" ${url}/${product.code} " class="linkProduct">
 							<div class="homepage__primary-img">
 								<img src="${product.image}" alt="">
-
+	
 							</div>
 							<div class="homepage__primary-info">
 								<h5 class="homepage__primary-info-item">${product.name}</h5>
-								<span class="homepage__primary-info-price">
+								<c:if test="${product.discount > 0}">
+									<div class="all-price">
+										<span class="homepage__primary-info-price price-before-sale">
+											${product.price}đ
+										</span>
+										<span class="homepage__primary-info-price price-on-sale">
+											${product.price - (product.price - (product.price * (product.discount / 100)))}đ
+										</span>
+										<span class="save-price">
+											Save ${product.price * (product.discount / 100)}đ
+										</span>
+									</div>
+								</c:if>
+								<c:if test="${product.discount <= 0}">
+									<span class="homepage__primary-info-price price-normal">
 									${product.price} </span>
+								</c:if>
+								
 
 							</div>
 						</a>

@@ -20,5 +20,8 @@ public interface IProductService {
 	List<ProductDTO> findRelateProduct(ProductDTO product);
 	List<ProductDTO> findNewProduct(Pageable pageable);
 	ProductDTO findByCode(String productCode);
+	Map<String, Object> findBySize(String sizes);
+	List<ProductDTO> querySearch(String query, Pageable pageable);
+	Map<String, Object> queryProduct(String query, Pageable pageable);
 	
 }

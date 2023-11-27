@@ -116,6 +116,7 @@ public class CheckoutController {
 			orderItemEntity.setQuantity(order.getQuantity().get(i));
 			orderItemEntity.setSize(order.getSize().get(i));
 			orderItemEntity.setOrder(orderEntityNow);
+			orderItemEntity.setReview(false);
 			orderItemEntity.setProduct(productService.findById(order.getProductId().get(i)));
 			orderItems.add(orderItemEntity);
 		}
@@ -154,6 +155,7 @@ public class CheckoutController {
 			orderItemEntity.setQuantity(order.getQuantity().get(i));
 			orderItemEntity.setSize(order.getSize().get(i));
 			orderItemEntity.setOrder(orderEntityNow);
+			orderItemEntity.setReview(false);
 			orderItemEntity.setProduct(productService.findById(order.getProductId().get(i)));
 			orderItems.add(orderItemEntity);
 		}

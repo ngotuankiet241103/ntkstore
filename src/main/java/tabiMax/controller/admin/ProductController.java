@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import tabiMax.contraint.MaxPageItem;
 import tabiMax.dto.ProductDTO;
 import tabiMax.entity.ProductEntity;
 import tabiMax.modelMapper.entityToDto;
+import tabiMax.modelMapper.modelMapper;
 import tabiMax.paging.pageRequest;
 import tabiMax.service.FileUpload;
 import tabiMax.service.ICategoryCommonService;
@@ -79,7 +81,12 @@ public class ProductController {
 		
 		return "admin/product";
 	}
-
+	@GetMapping("product/edit/{id}")
+	public String pageEdit(@PathVariable("id") Long id,Model model) {
+		ProductDTO product = modelMapper.toMapper().map(productService.findById(id), ProductDTO.class);
+		model.addAttribute("product", product);
+		return "admin/editProduct";
+	}
 	@PostMapping(value = "product")
 	public String addProduct(@ModelAttribute("product") ProductDTO product) {
 		System.out.println(product.getName());
@@ -90,7 +97,6 @@ public class ProductController {
 			}
 			
 			product.setSizeQuantityMap(tranfromListToMap.toMap(product.getSize(), product.getAmount()));
-			System.out.println(product.getSizeQuantityMap());
 			productService.save(product);
 			return "redirect:/admin/product";
 		} catch (IOException e) {

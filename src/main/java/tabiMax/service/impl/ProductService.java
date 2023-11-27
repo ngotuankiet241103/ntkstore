@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 
@@ -41,10 +42,9 @@ public class ProductService implements IProductService {
 
 	@Override
 	public void save(ProductDTO product) {
-		Jedis jedis = RedisCache.jedisPool.getResource();
-		if (jedis.hgetAll("product".getBytes()).size() > 0) {
-			jedis.del("product");
-		}
+
+		long total = productRepository.count();
+		removeCaching(total);
 		String code = handleString.removeDiacritics(product.getName());
 		product.setCode(handleString.strToCode(code));
 		ProductEntity productEntity = modelMapper.toMapper().map(product, ProductEntity.class);
@@ -52,6 +52,15 @@ public class ProductService implements IProductService {
 		productEntity.setCategory(categoryCommonRepository.findById(product.getCategoryCommonId())
 				.orElseThrow(() -> new RuntimeException("Category is not found")));
 		productRepository.save(productEntity);
+	}
+
+	@Async
+	private void removeCaching(long total) {
+		Jedis jedis = RedisCache.jedisPool.getResource();
+		for (int i = 0; i < total; i++) {
+			jedis.del("product?page=" + i);
+		}
+
 	}
 
 	@Cacheable(cacheNames = "products", key = "products")
@@ -166,13 +175,13 @@ public class ProductService implements IProductService {
 		}
 		Collections.sort(listProduct, (o1, o2) -> o1.getDistance() - o2.getDistance() > 0 ? 1 : 0);
 		int k = 4;
-		if(k > listProduct.size()) {
+		if (k > listProduct.size()) {
 			k = listProduct.size();
 		}
 		List<ProductDTO> newProducts = new ArrayList<>();
 		for (int i = 0; i < k; i++) {
 			newProducts.add(listProduct.get(i));
-			
+
 		}
 
 		return newProducts;
@@ -187,10 +196,37 @@ public class ProductService implements IProductService {
 
 	@Override
 	public ProductDTO findByCode(String productCode) {
-		return productRepository
-				.findByCode(productCode)
+		return productRepository.findByCode(productCode)
 				.map(product -> modelMapper.toMapper().map(product, ProductDTO.class))
 				.orElseThrow(() -> new RuntimeException("product is not exits"));
+	}
+
+	@Override
+	public Map<String, Object> findBySize(String sizes) {
+		Map<String, Object> response = new HashMap<>();
+		response.put("products", productRepository.findBySize(sizes));
+		return response;
+	}
+
+	@Override
+	public List<ProductDTO> querySearch(String query, Pageable pageable) {
+		String param = "%" + query + "%";
+		return productRepository.findByParam(param, pageable).getContent().stream()
+				.map(product -> modelMapper.toMapper().map(product, ProductDTO.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public Map<String, Object> queryProduct(String query, Pageable pageable) {
+		Map<String, Object> response = new HashMap<>();
+		String param = "%" + query + "%";
+		
+		Page<ProductEntity> page = productRepository.findByParam(param, pageable);
+		List<ProductDTO> poDtos = page.getContent().stream()
+				.map(product -> modelMapper.toMapper().map(product, ProductDTO.class)).collect(Collectors.toList());
+		pageRequest paging = new pageRequest(page.getNumber(), page.getTotalPages());
+		response.put("products",poDtos);
+		response.put("pageable", paging);
+		return response;
 	}
 
 }

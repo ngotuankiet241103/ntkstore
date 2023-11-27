@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import tabiMax.entity.CancelOrderEntity;
 import tabiMax.entity.DetailsOrder;
 import tabiMax.entity.OrderItemEntity;
 import tabiMax.entity.RefundOrderEntity;
@@ -23,7 +24,14 @@ public class OrderDTO {
 	private Set<OrderItemEntity> orderItems = new HashSet<>();
 	private RefundOrderEntity refundOrder;
 	private Date createdDate;
+	private CancelOrderEntity cancelOrderEntity;
 	
+	public CancelOrderEntity getCancelOrderEntity() {
+		return cancelOrderEntity;
+	}
+	public void setCancelOrderEntity(CancelOrderEntity cancelOrderEntity) {
+		this.cancelOrderEntity = cancelOrderEntity;
+	}
 	public Date getCreatedDate() {
 		return createdDate;
 	}

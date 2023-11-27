@@ -1,5 +1,6 @@
 package tabiMax.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -11,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
-import tabiMax.entity.CategoryCommonEntity;
+import tabiMax.dto.ProductDTO;
 import tabiMax.entity.ProductEntity;
 
 public interface IProductRepository extends Repository<ProductEntity, Long> {
@@ -46,5 +47,13 @@ public interface IProductRepository extends Repository<ProductEntity, Long> {
 	Page<ProductEntity> findByCategoryDetailsName(String categoryName, Pageable pageable);
 
 	Optional<ProductEntity> findByCode(String productCode);
+
+	long count();
+	
+	@Query(value = "SELECT c FROM ProductEntity c WHERE c.name = ?1")
+	List<ProductEntity> findBySize(String string);
+	
+	@Query(value = "SELECT c FROM ProductEntity c WHERE c.name LIKE ?1")
+	Page<ProductEntity> findByParam(String query,Pageable pageable);
 
 }

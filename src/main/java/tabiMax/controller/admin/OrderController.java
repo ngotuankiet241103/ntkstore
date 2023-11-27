@@ -17,7 +17,7 @@ import tabiMax.entity.OrderEntity;
 import tabiMax.paging.pageRequest;
 import tabiMax.service.IOderService;
 
-@Controller
+@Controller("adminController")
 @RequestMapping("/admin")
 public class OrderController {
 	@Autowired

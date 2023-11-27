@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -47,6 +48,7 @@ public class WebSecurity {
 						.antMatchers("/login").permitAll()
 						.antMatchers("/authenticated").permitAll().antMatchers("/refresh-token").permitAll()
 						.antMatchers("/register").permitAll().antMatchers("/registerAccount").permitAll()
+						.antMatchers(HttpMethod.GET,"/api/product/**").permitAll()
 						.antMatchers("/api/product/**").authenticated().antMatchers("/api/**").permitAll())
 				.formLogin(form -> form.loginPage("/admin/authenticated").permitAll().passwordParameter("password")
 						.usernameParameter("email"))
@@ -54,7 +56,6 @@ public class WebSecurity {
 //				.and()
 //				.antMatcher("/admin/**").sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
 //				.and()
-
 				.exceptionHandling().authenticationEntryPoint((request, response, e) -> {
 					if (request.getRequestURL().indexOf("admin") > 0) {
 						response.sendRedirect(request.getContextPath() + "/admin/authenticated");
@@ -64,7 +65,11 @@ public class WebSecurity {
 					response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 				}).and().addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).logout()
 				.logoutUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-				.logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
+				.logoutSuccessHandler((request, response, authentication) -> {
+					SecurityContextHolder.clearContext();
+					response.sendRedirect("trang-chu");
+					
+				});
 //		http.cors().disable().csrf().disable()
 //
 //				.authorizeHttpRequests(authz -> authz.antMatchers("/trang-chu").permitAll().antMatchers("/admin*")
@@ -115,9 +120,9 @@ public class WebSecurity {
 		@Override
 		public void handle(HttpServletRequest request, HttpServletResponse response,
 				AccessDeniedException accessDeniedException) throws IOException, ServletException {
-			new RuntimeException("access deny");
+//			new RuntimeException("access deny");
 			String url = request.getRequestURL().toString();
-			response.sendRedirect("avca");
+			response.sendRedirect("trang-chu");
 
 		}
 

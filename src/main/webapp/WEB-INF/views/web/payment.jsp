@@ -15,20 +15,20 @@
 					<h3>Bạn đã ${paymentStatus}</h3>
 					<span><i class="fa-regular fa-clock"></i></span>
 					<p>Đơn hàng của bạn đang được xử lý</p>
-					<a href="">Quay lại trang mua hàng</a>
+					<a href="<c:url value='/trang-chu'/>">Quay lại trang mua hàng</a>
 				</c:if>
 				<c:if test="${paymentStatus == null}">
 					<h3>Bạn đã ${orderStatus}</h3>
 					<span><i class="fa-regular fa-clock"></i></span>
 					<p>Đơn hàng của bạn đang được xử lý</p>
-					<a href="">Quay lại trang mua hàng</a>
+					<a href="<c:url value='/product'/>">Quay lại trang mua hàng</a>
 				</c:if>
 			</c:if>
 			<c:if test="${orderStatus == null}">
 				<h3>Bạn đã ${paymentStatus}</h3>
 				<span><i class="fa-regular fa-clock"></i></span>
 				<p>Đơn hàng của bạn đang được xử lý</p>
-				<a href="">Quay lại trang mua hàng</a>
+				<a href="<c:url value='/product'">Quay lại trang mua hàng</a>
 			</c:if>
 
 		</div>

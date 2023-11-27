@@ -28,7 +28,7 @@ public class ProductDTO {
 	private String description;
 	private String code;
 	private Float price;
-
+	private int discount;
 	@JsonIgnore
 	private Long categoryId;
 	@JsonIgnore
@@ -154,6 +154,14 @@ public class ProductDTO {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
 	}
 	
 }

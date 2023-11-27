@@ -76,7 +76,7 @@ public class UserController {
 			
 		}
 		user = (CustomUserDetails) email;
-	    return ResponseEntity.ok(userService.findByEmail(user.getUsername()));
+	    return ResponseEntity.ok(userService.findByEmails(user.getUsername()));
 	}
 	@GetMapping(value = "/api/role/{id}/user")
 	public ResponseEntity<List<UserEntity>> getUserByRoleId(@PathVariable("id") Long id) {

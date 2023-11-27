@@ -7,7 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
+import tabiMax.dto.CancelOrderDTO;
+import tabiMax.dto.CartItemDTO;
 import tabiMax.dto.OrderDTO;
+import tabiMax.dto.RefundOrderDTO;
 import tabiMax.entity.OrderEntity;
 import tabiMax.entity.OrderItemEntity;
 
@@ -32,4 +35,7 @@ public interface IOderService {
 	Page<OrderEntity> findByStatus(String orderStatus, Pageable pageable);
 	void updateStatusProduct(Long id);
 	OrderEntity findOrderByCode(String code);
+	void cancelOrder(CancelOrderDTO cancelOrderDTO);
+	void refundOrder(RefundOrderDTO refundOrderDTO);
+	
 }

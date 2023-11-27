@@ -21,9 +21,10 @@
 						<ul class="header-menu row">
 							<li class="header-menu-item col"><a href=""> Home</a></li>
 							<li class="header-menu-item header-menu-item-product col"><a
-								href="<c:url value = '/product'/>">Product</a> <i class="fa-solid fa-angle-down"></i>
+								href="<c:url value = '/product'/>">Product</a> <i
+								class="fa-solid fa-angle-down"></i>
 								<ul class="header-submenu">
-									
+
 								</ul></li>
 							<li class="header-menu-item col"><a href="">Blog</a></li>
 							<li class="header-menu-item col"><a href="">About Us</a></li>
@@ -31,6 +32,10 @@
 					</div>
 
 					<div class="header-login c-3">
+						<div class="header-search">
+							<i class="fa-solid fa-magnifying-glass"></i>
+
+						</div>
 						<div class="header-cart">
 							<i class="fa-solid fa-cart-shopping"></i>
 						</div>
@@ -39,13 +44,16 @@
 							<div class="userActive">
 								<i class="fa-solid fa-user"></i>
 								<ul class="box-info">
-									<li class="info-item"><a href=" <c:url value = '/profile' />" class="item-link"> <i
+									<li class="info-item"><a
+										href=" <c:url value = '/profile' />" class="item-link"> <i
 											class="fa-regular fa-face-smile-beam"></i> Quản lí tài khoản
 									</a></li>
-									<li class="info-item"><a href="<c:url value = '/customer/order'/>" class="item-link"> <i
-											class="fa-solid fa-box"></i> Quản lí đơn hàng
+									<li class="info-item"><a
+										href="<c:url value = '/customer/order'/>" class="item-link">
+											<i class="fa-solid fa-box"></i> Quản lí đơn hàng
 									</a></li>
-									<li class="info-item"><a href="" class="item-link"> <i
+									<li class="info-item"><a href="<c:url value='/logout' />"
+										class="item-link"> <i
 											class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
 									</a></li>
 								</ul>
@@ -65,11 +73,37 @@
 			<ul class="list-production"></ul>
 		</div>
 	</div>
+	<div class="form-search">
+		<div class="header-form-search">
+			<input type="text" placeholder="Search our store"> <i
+				class="fa-solid fa-xmark"></i>
+		</div>
+		<div class="result-search-container">
+			<ul class="result-search-list">
+			</ul>
+			<div class="footer-search">
+				<a href=" <c:url value='/search?q='/> " class="btnViewResult">View more</a>
+			</div>
+			
+		</div>
+		
+	</div>
+	<script type="text/javascript"
+		src="<c:url value='/template/web/js/search.js'/>"></script>
+	<script type="text/javascript">
+		const btnSearch = document.querySelector('.header-search');
+		btnSearch.onclick = () => {
+			const formSearch = document.querySelector('.form-search');
+			formSearch.classList.add("active");
+			handleSearch(formSearch);
+			
+		}
+	</script>
 	<script type="module"
 		src="<c:url value='/template/web/js/header.js'/> "></script>
 	<script type="module"
-		src="<c:url value='/template/web/js/category.js'/> "></script>
-		<script type="module"
+		src="<c:url value='/template/web/js/category2.js'/> "></script>
+	<script type="module"
 		src="<c:url value='/template/web/js/menuHeader.js'/> "></script>
 
 </body>

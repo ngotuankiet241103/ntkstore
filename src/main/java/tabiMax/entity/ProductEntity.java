@@ -33,7 +33,8 @@ public class ProductEntity extends BaseEntity implements Serializable {
 	private String code;
 	@Column
 	private int status;
-	
+	@Column
+	private int discount;
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "sizeQuantityMap")
 	@MapKeyColumn(name = "size")
@@ -125,6 +126,14 @@ public class ProductEntity extends BaseEntity implements Serializable {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
 	}
 	
 

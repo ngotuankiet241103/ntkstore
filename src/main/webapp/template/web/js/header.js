@@ -1,6 +1,7 @@
 import { apiRequestMethodGet, apiRequestMethodPost, setToken } from "./homePage.js";
 import { loginSucess } from "./menuHeader.js";
 var user
+var cartApi = "http://localhost:8080/e-commerceSpringMvc/api/carts";
 apiRequestMethodGet("http://localhost:8080/e-commerceSpringMvc/api/user", getUserData);
 function getUserData(response) {
 	user = response;
@@ -12,7 +13,7 @@ function getUserData(response) {
 function getCart(user) {
 	var course = "http://localhost:8080/e-commerceSpringMvc/api/carts/user";
 	console.log(course);
-	var cartApi = "http://localhost:8080/e-commerceSpringMvc/api/carts";
+	
 	const cart = document.querySelector('.header-cart')
 	const listCart = document.querySelector('.list-cart')
 	const coating = document.querySelector('.header')
@@ -42,7 +43,7 @@ function getCart(user) {
 		console.log(products)
 		const listProduct = document.querySelector(".list-production");
 		console.log(products);
-		const htmls = products != null && products.id > 0 && products.cartItems.map(pro => {
+		const htmls = products != null && products.id > 0 && products.cartItems.length > 0 && products.cartItems.map(pro => {
 
 			const image = pro.product.image;
 			console.log(image);
@@ -52,7 +53,7 @@ function getCart(user) {
 	                <img src="${image}" alt="" >
 	                <div class="info-product">
 	                            <p>${pro.product.name}</p>
-	                            <p>${pro.price} x ${pro.quanlity} <span>${pro.totalPrice}.00</span></p>
+	                            <p>${pro.product.price} x ${pro.quanlity} <span>${pro.totalPrice}.00</span></p>
 	                </div>
 	                <img src="./images/icon-delete.svg" alt="" class="delete" data-id="${pro.id}">
 	                
@@ -69,7 +70,7 @@ function getCart(user) {
 		}
 
 		listProduct.innerHTML = htmls
-		
+
 		btnDelete = document.querySelector('.delete');
 		catchEvent();
 	}
@@ -89,7 +90,7 @@ function getCart(user) {
 
 
 	}
-	
+
 
 
 
@@ -100,22 +101,22 @@ function checkout() {
 	const list = document.querySelector('.list-production')
 	const listCheckbox = list.querySelectorAll('input[type="checkbox"]:checked');
 	console.log(listCheckbox)
-	const data ={}
+	const data = {}
 	let cartId = []
 	listCheckbox.forEach(checkbox => {
 		const product = checkbox.parentElement;
 		cartId.push(product.getAttribute("data-id"))
-		
+
 	})
 	const newUrl = new URL("http://localhost:8080/e-commerceSpringMvc/product/detail/checkout");
 
-  // Thêm header
-  newUrl.searchParams.set("cartId", cartId);
-  window.location.href = newUrl.toString();
+	// Thêm header
+	newUrl.searchParams.set("cartId", cartId);
+	window.location.href = newUrl.toString();
 
 }
 function deleteProduct(id) {
-	alert("a")
+
 	const option = {
 		method: 'DELETE',
 		headers: {
@@ -132,18 +133,25 @@ function deleteProduct(id) {
 }
 function handleEventCart() {
 
-
-
-		btnDelete.onclick = () => {
-			const id = btnDelete.getAttribute("data-id")
-			deleteProduct(id);
-		}
-
-
+	btnDelete.onclick = () => {
+		const id = btnDelete.getAttribute("data-id")
+		deleteProduct(id);
 	}
+
+
+}
 // delete cart-item
 function catchEvent() {
 	const btnCheckout = document.querySelector('.btn-check');
+	const btnDel = document.querySelectorAll('.delete')
+	if (btnDel != null) {
+		btnDel.forEach(btn => {
+			btn.onclick = () => {
+				const id = btn.getAttribute("data-id");
+				deleteProduct(id);
+			}
+		})
+	}
 	btnCheckout.onclick = () => checkout();
 }
 

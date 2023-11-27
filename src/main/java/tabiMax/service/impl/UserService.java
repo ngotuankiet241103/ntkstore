@@ -128,14 +128,21 @@ public class UserService implements IUserService {
 	@Override
 	public UserEntity updateUserById(PasswordUpdateRequest user, Long id) {
 		UserEntity userEntity = userRepository.findById(id);
-		if (passwordEncoder.matches(user.getPassword(), userEntity.getPassword())) {
-			user.setPasswordNew(passwordEncoder.encode(user.getPasswordNew()));
-			userRepository.updateUserById(user.getFullName(), user.getEmail(), user.getPhone(), user.getPasswordNew(),
-					id);
-			userEntity = userRepository.findById(id);
-		} else {
-			userEntity = null;
+		if(user.getPassword() != "") {
+			if (passwordEncoder.matches(user.getPassword(), userEntity.getPassword())) {
+				user.setPasswordNew(passwordEncoder.encode(user.getPasswordNew()));
+				userRepository.updateUserById(user.getFullName(), user.getEmail(), user.getPhone(), user.getPasswordNew(),
+						id);
+				userEntity = userRepository.findById(id);
+			} else {
+				userEntity = null;
+			}
 		}
+		else {
+			userRepository.updateInfoById(user.getFullName(), user.getEmail(), user.getPhone(), id);
+			userEntity = userRepository.findById(id);
+		}
+		
 		return userEntity;
 
 	}
@@ -279,6 +286,15 @@ public class UserService implements IUserService {
 	public Object deleteUserById(long id) {
 		userRepository.deleteUserById(id);
 		return null;
+	}
+
+	@Override
+	public UserDTO findByEmails(String email) {
+		return userRepository.findByEmail(email).map(user -> { 
+				UserDTO userDTO = modelMapper.toMapper().map(user, UserDTO.class);
+				userDTO.setRole(List.of(user.getRole().getName()));
+				return userDTO;
+			}).orElseThrow(() -> new RuntimeException("email is not found"));
 	}
 
 }

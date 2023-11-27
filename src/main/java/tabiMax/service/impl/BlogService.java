@@ -23,6 +23,7 @@ import tabiMax.repository.IBlogRepository;
 import tabiMax.repository.ICommentRepository;
 import tabiMax.repository.ITagRepository;
 import tabiMax.repository.ITopicRepository;
+import tabiMax.repository.IUserRepository;
 import tabiMax.service.IBlogSerivce;
 import tabiMax.service.ICommentService;
 import tabiMax.utils.handleString;
@@ -37,7 +38,8 @@ public class BlogService implements IBlogSerivce {
 	private ITagRepository tagRepository;
 	@Autowired
 	private ICommentRepository commentRepository;
-
+	@Autowired
+	private IUserRepository userRepository;
 	@Override
 	public void save(BlogDTO blog) {
 		BlogEntity blogEntity = null;
@@ -96,7 +98,7 @@ public class BlogService implements IBlogSerivce {
 		BlogDTO blogDTO = modelMapper.toMapper().map(blog, BlogDTO.class);
 //		Map<String, List<CommentEntity>> comment = blog.getComments().stream()
 //				.collect(Collectors.groupingBy(cmt -> cmt.getTree_id()));
-		blogDTO.setUserName(blog.getCreatedBy());
+		blogDTO.setUserName(userRepository.findByEmail(blog.getCreatedBy()).orElse(null).getFullName());
 //		blogDTO.setComment(comment);
 		return blogDTO;
 	}

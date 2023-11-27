@@ -30,6 +30,9 @@ public interface IUserRepository extends Repository<UserEntity, Long> {
 	@Modifying
 	@Query("UPDATE UserEntity c SET c.fullName= ?1, c.email = ?2,c.phone = ?3, c.password = ?4 WHERE c.id = ?5")
 	void updateUserById(String fullName, String email, String phone, String passwordNew, Long id);
+	@Modifying
+	@Query("UPDATE UserEntity c SET c.fullName= ?1, c.email = ?2,c.phone = ?3 WHERE c.id = ?4")
+	void updateInfoById(String fullName, String email, String phone, Long id);
 
 	Optional<UserEntity> findByEmail(String email);
 

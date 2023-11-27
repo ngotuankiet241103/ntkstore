@@ -15,6 +15,7 @@ import tabiMax.dto.CommentDTO;
 import tabiMax.entity.CommentEntity;
 import tabiMax.repository.IBlogRepository;
 import tabiMax.repository.ICommentRepository;
+import tabiMax.repository.IUserRepository;
 import tabiMax.service.ICommentService;
 @Service
 public class CommentService implements ICommentService{
@@ -22,6 +23,8 @@ public class CommentService implements ICommentService{
 	private ICommentRepository commenntRepository;
 	@Autowired
 	private IBlogRepository blogRepository;
+	@Autowired
+	private IUserRepository userRepository;
 	@Override
 	public CommentEntity save(CommentDTO comment) {
 		String tree_id = comment.getTree_id();
@@ -35,7 +38,7 @@ public class CommentService implements ICommentService{
 			newComment.setBlog(blogRepository.findById(comment.getBlogId()));
 			newComment.setComments(comment.getContent());
 			newComment.setParent_id(comment.getParent_id());
-			
+			newComment.setUser(userRepository.findById(comment.getUserId()));
 		}
 		else {
 			UUID tree_idNew = UUID.randomUUID();
@@ -44,7 +47,7 @@ public class CommentService implements ICommentService{
 			newComment.setComments(comment.getContent());
 			newComment.setNode_left(1);
 			newComment.setNode_right(2);
-			
+			newComment.setUser(userRepository.findById(comment.getUserId()));
 			return commenntRepository.save(newComment);
 		}
 		
